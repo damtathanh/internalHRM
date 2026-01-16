@@ -59,6 +59,6 @@
       "dev": "vite",
       "build": "vite build",
       "preview": "vite preview",
-      "backup": "git add . && git commit -m \"backup\" && git push"
+      "backup": "git add -u && git commit -m \"backup\" && git push"
       }
 }
