@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Building2, Mail, Lock, AlertCircle } from "lucide-react";
-import { motion } from "motion/react";
 import { useAuth } from "../contexts/AuthContext";
 import { Alert, AlertDescription } from "./ui/alert";
 
@@ -31,12 +30,7 @@ export function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
+      <div className="w-full max-w-md">
         <Card className="glass-card border-0 shadow-lg">
           <CardHeader className="space-y-4 text-center">
             <div className="flex justify-center">
@@ -104,7 +98,7 @@ export function Login() {
             </form>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 }

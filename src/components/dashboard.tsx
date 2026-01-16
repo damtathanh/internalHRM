@@ -14,7 +14,6 @@ import {
   FileText,
   UserPlus
 } from "lucide-react";
-import { motion } from "motion/react";
 import { dashboardService } from "../services/dashboard.service";
 import { getStatusColor } from "../utils/status";
 import type { DashboardStat, RecentRequest, UpcomingEvent } from "../types";
@@ -55,12 +54,7 @@ export function Dashboard() {
     loadData();
   }, []);
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       {/* Header */}
       <div>
         <h1 className="mb-2">HR Dashboard</h1>
@@ -75,12 +69,7 @@ export function Dashboard() {
           <div className="col-span-4 text-center py-8 text-muted-foreground">Loading...</div>
         ) : (
           stats.map((stat, index) => (
-          <motion.div
-            key={stat.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
+          <div key={stat.title}>
             <Card className="glass-card border-0 shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -98,18 +87,14 @@ export function Dashboard() {
                 </p>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
           ))
         )}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Payroll Progress */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <div>
           <Card className="glass-card border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -144,14 +129,10 @@ export function Dashboard() {
               </Button>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
 
         {/* Recent Requests */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <div>
           <Card className="glass-card border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -182,14 +163,10 @@ export function Dashboard() {
               </Button>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
 
         {/* Upcoming Events */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
+        <div>
           <Card className="glass-card border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -221,15 +198,11 @@ export function Dashboard() {
               </Button>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       </div>
 
       {/* Quick Actions */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
+      <div>
         <Card className="glass-card border-0 shadow-lg">
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
@@ -255,7 +228,7 @@ export function Dashboard() {
             </div>
           </CardContent>
         </Card>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

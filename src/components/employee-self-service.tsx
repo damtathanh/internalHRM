@@ -22,7 +22,6 @@ import {
   Home,
   Car
 } from "lucide-react";
-import { motion } from "motion/react";
 import { attendanceService } from "../services/attendance.service";
 import { loanService } from "../services/loan.service";
 import { getStatusColor } from "../utils/status";
@@ -64,12 +63,7 @@ export function EmployeeSelfService() {
   }, [user]);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       <div>
         <h1 className="mb-2">Employee Self-Service</h1>
         <p className="text-muted-foreground">
@@ -79,7 +73,7 @@ export function EmployeeSelfService() {
 
       {/* Quick Actions */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="glass-card border-0 shadow-lg cursor-pointer hover:scale-105 transition-transform">
+        <Card className="glass-card border-0 shadow-lg cursor-pointer">
           <CardContent className="flex items-center justify-center p-6">
             <div className="text-center space-y-2">
               <Calendar className="h-8 w-8 mx-auto text-blue-600" />
@@ -89,7 +83,7 @@ export function EmployeeSelfService() {
           </CardContent>
         </Card>
 
-        <Card className="glass-card border-0 shadow-lg cursor-pointer hover:scale-105 transition-transform">
+        <Card className="glass-card border-0 shadow-lg cursor-pointer">
           <CardContent className="flex items-center justify-center p-6">
             <div className="text-center space-y-2">
               <DollarSign className="h-8 w-8 mx-auto text-green-600" />
@@ -99,7 +93,7 @@ export function EmployeeSelfService() {
           </CardContent>
         </Card>
 
-        <Card className="glass-card border-0 shadow-lg cursor-pointer hover:scale-105 transition-transform">
+        <Card className="glass-card border-0 shadow-lg cursor-pointer">
           <CardContent className="flex items-center justify-center p-6">
             <div className="text-center space-y-2">
               <FileText className="h-8 w-8 mx-auto text-purple-600" />
@@ -109,7 +103,7 @@ export function EmployeeSelfService() {
           </CardContent>
         </Card>
 
-        <Card className="glass-card border-0 shadow-lg cursor-pointer hover:scale-105 transition-transform">
+        <Card className="glass-card border-0 shadow-lg cursor-pointer">
           <CardContent className="flex items-center justify-center p-6">
             <div className="text-center space-y-2">
               <CreditCard className="h-8 w-8 mx-auto text-orange-600" />
@@ -381,7 +375,7 @@ export function EmployeeSelfService() {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2">
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer hover:shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <FileText className="h-10 w-10 text-blue-600" />
@@ -397,7 +391,7 @@ export function EmployeeSelfService() {
                   </CardContent>
                 </Card>
 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer hover:shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <CreditCard className="h-10 w-10 text-green-600" />
@@ -413,7 +407,7 @@ export function EmployeeSelfService() {
                   </CardContent>
                 </Card>
 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer hover:shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <FileText className="h-10 w-10 text-purple-600" />
@@ -429,7 +423,7 @@ export function EmployeeSelfService() {
                   </CardContent>
                 </Card>
 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer hover:shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <Car className="h-10 w-10 text-orange-600" />
@@ -549,6 +543,6 @@ export function EmployeeSelfService() {
           </Card>
         </TabsContent>
       </Tabs>
-    </motion.div>
+    </div>
   );
 }

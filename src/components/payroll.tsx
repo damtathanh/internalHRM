@@ -19,7 +19,6 @@ import {
   Users,
   Calculator
 } from "lucide-react";
-import { motion } from "motion/react";
 import { payrollService } from "../services/payroll.service";
 import { getStatusColor } from "../utils/status";
 import type { PayrollRun, PayrollComponent, Payslip, BankTransfer } from "../types";
@@ -54,11 +53,7 @@ export function Payroll() {
     loadData();
   }, []);
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
+    <div className="space-y-6"
     >
       <div>
         <h1 className="mb-2">Payroll & Benefits</h1>
@@ -237,11 +232,8 @@ export function Payroll() {
             <CardContent>
               <div className="space-y-4">
                 {payrollComponents.map((component, index) => (
-                  <motion.div
+                  <div
                     key={component.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-center justify-between p-4 border rounded-lg"
                   >
                     <div>
@@ -252,7 +244,7 @@ export function Payroll() {
                       <div className="font-medium">{component.amount}</div>
                       <div className="text-sm text-muted-foreground">{component.percentage}%</div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </CardContent>
@@ -375,6 +367,6 @@ export function Payroll() {
           </Card>
         </TabsContent>
       </Tabs>
-    </motion.div>
+    </div>
   );
 }

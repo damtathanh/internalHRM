@@ -25,7 +25,6 @@ import {
   CheckCircle,
   XCircle
 } from "lucide-react";
-import { motion } from "motion/react";
 import { recruitmentService } from "../services/recruitment.service";
 import { getStatusColor, getPriorityColor } from "../utils/status";
 import type { HiringRequest, Application, Interview } from "../types";
@@ -61,12 +60,7 @@ export function Recruitment() {
   }, []);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       <div>
         <h1 className="mb-2">Recruitment & Onboarding</h1>
         <p className="text-muted-foreground">
@@ -229,10 +223,8 @@ export function Recruitment() {
             <CardContent>
               <div className="grid gap-4">
                 {applications.map((application) => (
-                  <motion.div
+                  <div
                     key={application.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
                     className="border rounded-lg p-4 glass-card"
                   >
                     <div className="flex items-start justify-between">
@@ -270,7 +262,7 @@ export function Recruitment() {
                         </Button>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </CardContent>
@@ -488,6 +480,6 @@ export function Recruitment() {
           </Card>
         </TabsContent>
       </Tabs>
-    </motion.div>
+    </div>
   );
 }

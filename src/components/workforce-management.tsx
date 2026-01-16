@@ -20,7 +20,6 @@ import {
   Briefcase,
   DollarSign
 } from "lucide-react";
-import { motion } from "motion/react";
 import { employeeService } from "../services/employee.service";
 import { getStatusColor } from "../utils/status";
 import type { Department, Position, SalaryGrade } from "../types";
@@ -57,12 +56,7 @@ export function WorkforceManagement() {
   }, []);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       <div>
         <h1 className="mb-2">Workforce Management</h1>
         <p className="text-muted-foreground">
@@ -394,6 +388,6 @@ export function WorkforceManagement() {
           </Card>
         </TabsContent>
       </Tabs>
-    </motion.div>
+    </div>
   );
 }

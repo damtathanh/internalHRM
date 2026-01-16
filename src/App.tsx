@@ -17,7 +17,6 @@ import { Payroll } from "./components/payroll";
 import { EmployeeSelfService } from "./components/employee-self-service";
 import { Login } from "./components/login";
 import { useAuth } from "./contexts/AuthContext";
-import { motion, AnimatePresence } from "motion/react";
 import { 
   LayoutDashboard, 
   Users, 
@@ -194,7 +193,7 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div>
           <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
@@ -388,17 +387,7 @@ export default function App() {
           
           <main className="flex-1 p-6 overflow-auto">
             <div className="max-w-7xl mx-auto">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeModule}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {renderContent()}
-                </motion.div>
-              </AnimatePresence>
+              {renderContent()}
             </div>
           </main>
         </div>
