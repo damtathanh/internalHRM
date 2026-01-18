@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Building2, Mail, Lock, AlertCircle } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../auth/AuthContext";
 import { Alert, AlertDescription } from "./ui/alert";
 
 export function Login() {

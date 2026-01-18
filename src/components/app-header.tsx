@@ -19,12 +19,14 @@ import {
   LogOut, 
   Moon, 
   Sun, 
-  Languages,
-  HelpCircle
+  Languages
 } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../auth/AuthContext";
+import { useProfile } from "../auth/ProfileContext";
 
 interface AppHeaderProps {
+  title?: string;
+  subtitle?: string;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
   isRTL: boolean;
@@ -32,8 +34,9 @@ interface AppHeaderProps {
   currentLanguage: 'en' | 'ar';
 }
 
-export function AppHeader({ isDarkMode, toggleDarkMode, toggleLanguage, currentLanguage }: AppHeaderProps) {
-  const { user, signOut } = useAuth();
+export function AppHeader({ title, subtitle, isDarkMode, toggleDarkMode, toggleLanguage, currentLanguage }: AppHeaderProps) {
+  const { authUser, signOut } = useAuth();
+  const { profile } = useProfile();
   const [searchTerm, setSearchTerm] = useState("");
   const [notifications] = useState([
     { id: 1, title: "New leave request", message: "Ahmed Al-Rashid submitted a leave request", time: "5 min ago", unread: true },
@@ -43,39 +46,61 @@ export function AppHeader({ isDarkMode, toggleDarkMode, toggleLanguage, currentL
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
+  // Safeguard: render null if no authenticated user
+  if (!authUser) {
+    return null;
+  }
+
   const handleSignOut = async () => {
     await signOut();
   };
 
   const getUserInitials = () => {
-    if (user?.email) {
-      return user.email.substring(0, 2).toUpperCase();
+    if (profile?.email) {
+      return profile.email.substring(0, 2).toUpperCase();
+    }
+    if (authUser?.email) {
+      return authUser.email.substring(0, 2).toUpperCase();
     }
     return "U";
   };
 
   const getUserDisplayName = () => {
-    return user?.email?.split("@")[0] || "User";
+    if (profile?.email) {
+      return profile.email.split("@")[0];
+    }
+    if (authUser?.email) {
+      return authUser.email.split("@")[0];
+    }
+    return "User";
   };
 
   return (
     <header className="h-16 border-b bg-card/50 backdrop-blur-sm">
-      <div className="flex h-full items-center justify-between px-6">
-        {/* Search Bar */}
-        <div className="flex items-center gap-4 flex-1 max-w-xl">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+      <div className="flex items-center gap-4 px-6 h-full">
+        {/* Left: Title & Subtitle */}
+        {(title || subtitle) && (
+          <div className="flex flex-col justify-center flex-shrink-0 min-w-0 pr-4">
+            {title && <h1 className="text-xl font-semibold leading-tight">{title}</h1>}
+            {subtitle && <p className="text-sm text-muted-foreground leading-tight mt-0.5">{subtitle}</p>}
+          </div>
+        )}
+
+        {/* Middle: Search Bar (flex-grow, auto-resize) */}
+        <div className="flex items-center flex-1 min-w-0">
+          <div className="flex items-center w-full max-w-2xl">
+            <Search className="h-4 w-4 text-muted-foreground flex-shrink-0 ml-3" />
             <Input
               placeholder={currentLanguage === 'ar' ? "البحث..." : "Search employees, requests, or documents..."}
               value={searchTerm}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-background/50"
+              className="flex-1 bg-background/50 pl-3"
             />
           </div>
         </div>
 
-        {/* Right Side Actions */}
-        <div className="flex items-center gap-2">
+        {/* Right: Fixed Action Buttons */}
+        <div className="flex items-center gap-2 flex-shrink-0">
           {/* Language Toggle */}
           <Button
             variant="ghost"
@@ -136,22 +161,17 @@ export function AppHeader({ isDarkMode, toggleDarkMode, toggleLanguage, currentL
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Help */}
-          <Button variant="ghost" size="sm">
-            <HelpCircle className="h-4 w-4" />
-          </Button>
-
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="gap-2 px-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={user?.user_metadata?.avatar_url} />
+                  <AvatarImage src={authUser?.user_metadata?.avatar_url} />
                   <AvatarFallback>{getUserInitials()}</AvatarFallback>
                 </Avatar>
                 <div className="hidden sm:block text-left">
                   <p className="text-sm font-medium">{getUserDisplayName()}</p>
-                  <p className="text-xs text-muted-foreground">{user?.email}</p>
+                  <p className="text-xs text-muted-foreground">{profile?.email || authUser?.email}</p>
                 </div>
               </Button>
             </DropdownMenuTrigger>

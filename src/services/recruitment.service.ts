@@ -3,10 +3,10 @@ import { supabase } from '../lib/supabase';
 
 // Mock data - will be replaced with actual Supabase queries
 const mockHiringRequests: HiringRequest[] = [
-  { id: 1, position: "Senior Software Engineer", department: "Engineering", priority: "high", requestedBy: "Ahmed Al-Rashid", status: "approved", deadline: "2024-02-15" },
-  { id: 2, position: "Marketing Specialist", department: "Marketing", priority: "medium", requestedBy: "Linda Smith", status: "pending", deadline: "2024-02-20" },
-  { id: 3, position: "HR Coordinator", department: "Human Resources", priority: "low", requestedBy: "Sarah Johnson", status: "draft", deadline: "2024-03-01" },
-  { id: 4, position: "Financial Analyst", department: "Finance", priority: "high", requestedBy: "Mohammed Hassan", status: "approved", deadline: "2024-02-10" },
+  { id: 1, position: "Senior Software Engineer", department: "Engineering", priority: "high", requestedBy: "Ahmed Al-Rashid", status: "approved", deadline: "2024-02-15", level: "Senior", openings: 3 },
+  { id: 2, position: "Marketing Specialist", department: "Marketing", priority: "medium", requestedBy: "Linda Smith", status: "pending", deadline: "2024-02-20", level: "Mid-Level", openings: 2 },
+  { id: 3, position: "HR Coordinator", department: "Human Resources", priority: "low", requestedBy: "Sarah Johnson", status: "draft", deadline: "2024-03-01", level: "Junior", openings: 1 },
+  { id: 4, position: "Financial Analyst", department: "Finance", priority: "high", requestedBy: "Mohammed Hassan", status: "approved", deadline: "2024-02-10", level: "Mid-Level", openings: 1 },
 ];
 
 const mockApplications: Application[] = [

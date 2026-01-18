@@ -2,50 +2,132 @@
 export type Status = 'pending' | 'approved' | 'rejected' | 'completed' | 'draft' | 'processing' | 'active' | 'inactive' | 'scheduled' | 'under_review' | 'offer_extended' | 'interview_scheduled';
 export type Priority = 'high' | 'medium' | 'low';
 
+// Auth & Profile types
+export type Role = 'admin' | 'hr' | 'manager' | 'employee';
+
+export interface Profile {
+  id: string;
+  user_id: string;
+  email: string;
+  full_name: string | null;
+  role: Role;
+  department_id: string | null;
+  manager_id: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// ============================================================================
+// WORKFORCE MANAGEMENT TYPES
+// ============================================================================
+
 // Employee types
+export type EmployeeStatus = 'active' | 'on_leave' | 'resigned';
+
 export interface Employee {
   id: string;
-  employeeId: string;
-  firstName: string;
-  lastName: string;
+  full_name: string;
   email: string;
-  phone?: string;
-  department: string;
-  position: string;
-  manager?: string;
-  hireDate: string;
-  status: Status;
-  avatar?: string;
+  phone: string | null;
+  position_id: string | null;
+  department_id: string | null;
+  manager_id: string | null;
+  job_grade_id: string | null;
+  status: EmployeeStatus;
+  system_role: Role; // Internal only - NOT displayed in UI
+  user_id: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// Employee list item with joined data for display
+export interface EmployeeListItem {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string | null;
+  position: string | null;
+  department: string | null;
+  manager: string | null;
+  status: EmployeeStatus;
+  // NOTE: system_role is NOT included here - it's internal only
 }
 
 // Department types
+export type DepartmentStatus = 'active' | 'inactive';
+
 export interface Department {
-  id: number;
+  id: string;
   name: string;
-  manager: string;
-  employees: number;
-  budget: string;
-  status: Status;
-  description?: string;
+  manager_id: string | null;
+  description: string | null;
+  status: DepartmentStatus;
+  created_at: string;
+  updated_at: string;
+}
+
+// Department list item with joined data for display
+export interface DepartmentListItem {
+  id: string;
+  name: string;
+  manager_id: string | null;
+  manager_name: string | null;
+  employee_count: number;
+  budget: number; // Calculated - sum of employee salaries
+  status: DepartmentStatus;
+  description: string | null;
 }
 
 // Position types
+export type PositionStatus = 'active' | 'inactive';
+
 export interface Position {
-  id: number;
+  id: string;
   title: string;
-  department: string;
-  level: string;
-  openings: number;
-  status: Status;
+  department_id: string | null;
+  description: string | null;
+  status: PositionStatus;
+  created_at: string;
+  updated_at: string;
 }
 
-// Salary Grade types
-export interface SalaryGrade {
-  id: number;
-  grade: string;
-  minSalary: string;
-  maxSalary: string;
-  level: string;
+// Position list item with joined data
+export interface PositionListItem {
+  id: string;
+  title: string;
+  department_id: string | null;
+  department_name: string | null;
+  status: PositionStatus;
+  description: string | null;
+}
+
+// Job Grade types
+// Job Grades are defined per Position
+// Each grade has multiple salary levels (some may be nullable)
+export interface JobGrade {
+  id: string;
+  position_id: string;
+  intern_salary: number | null;
+  junior_salary: number | null;
+  middle_salary: number | null;
+  senior_salary: number | null;
+  lead_salary: number | null;
+  manager_salary: number | null; // Also used for Head level
+  created_at: string;
+  updated_at: string;
+}
+
+// Job Grade list item with joined data for display
+export interface JobGradeListItem {
+  id: string;
+  position_id: string;
+  position_title: string;
+  intern_salary: number | null;
+  junior_salary: number | null;
+  middle_salary: number | null;
+  senior_salary: number | null;
+  lead_salary: number | null;
+  manager_salary: number | null;
 }
 
 // Payroll types
@@ -118,6 +200,8 @@ export interface HiringRequest {
   requestedBy: string;
   status: Status;
   deadline: string;
+  level?: string;
+  openings?: number;
 }
 
 export interface Application {
